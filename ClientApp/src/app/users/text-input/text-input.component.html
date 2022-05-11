@@ -1,19 +1,20 @@
-<mat-form-field class="full-width" appearance="fill">
-    <mat-label>{{label}}</mat-label>
-    <input matInput #input type="text" [name]="fieldName" [formControlName]="fieldName">
-    <mat-hint align="end">use between 3 and 25 characters, letters only {{input.value.length || 0}}/25</mat-hint>
-    <mat-error *ngIf="!formField.valid&&(formField.dirty||formField.touched)">
-        <mat-error *ngIf="formField.errors?.['required']">
-            {{label}} is required.
-        </mat-error>
-        <mat-error *ngIf="formField.errors?.['minlength']">
-            {{label}} must be at least 3 characters long.
-        </mat-error>
-        <mat-error *ngIf="formField.errors?.['maxlength']">
-            {{label}} must be maximum 25 characters long.
-        </mat-error>
-        <mat-error *ngIf="formField.errors?.['pattern']">
-            Only letters are accepted.
-        </mat-error>
+<mat-form-field #materialFormField class="full-width" appearance="fill">
+  <mat-label>{{ label }}</mat-label>
+
+  <ng-content></ng-content>
+
+  <mat-error *ngIf="!formField.valid && (formField.dirty || formField.touched)">
+    <mat-error *ngIf="formField.errors?.['required']">
+      {{ label }} is required.
     </mat-error>
-    </mat-form-field>
+    <mat-error *ngIf="formField.errors?.['minlength']">
+      {{ label }} must be at least 3 characters long.
+    </mat-error>
+    <mat-error *ngIf="formField.errors?.['maxlength']">
+      {{ label }} must be maximum 25 characters long.
+    </mat-error>
+    <mat-error *ngIf="formField.errors?.['pattern']">
+      Only letters are accepted.
+    </mat-error>
+  </mat-error>
+</mat-form-field>
