@@ -1,0 +1,11 @@
+<div *ngFor="let post of posts|async">
+<mat-card class="example-card">
+    <mat-card-title-group>
+        <mat-card-title>{{post.createdBy.name}}</mat-card-title>
+        <mat-card-subtitle>data postarii?</mat-card-subtitle>
+    </mat-card-title-group>
+    <img mat-card-image src = "/assets/images/akela.jpg" class="example-card">
+    <mat-card-content>{{post.details}}</mat-card-content>
+</mat-card>
+</div>
+
