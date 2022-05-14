@@ -1,18 +1,40 @@
+<mat-card class="user-form">
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-  <mat-card class="user-form">
-      <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width" appearance="fill">
-              <mat-label>phone</mat-label>
-              <input matInput type="text" name="phone" formControlName="phone">
-              <mat-hint align="end">digits and - only</mat-hint>
-              <mat-error *ngIf="!phone?.valid&&(phone?.dirty||phone?.touched)">
-                  <mat-error *ngIf="phone?.errors?.['required']">
-                      Phone is required.
-                  </mat-error>
-                  <mat-error *ngIf="phone?.errors?.['pattern']">
-                      Only digits and - are allowed
-                  </mat-error>
-              </mat-error>
+
+    <div class="row">
+        <app-phone-input [label]="'phone'">
+            <input matInput type="text" name="phone" formControlName="phone">
+        </app-phone-input>
+    </div>
+    <div class="row">
+        <app-address-input [label]="'address'">
+            <input matInput #input type="text" name="address" formControlName="address">
+        </app-address-input>
+    </div>
+    <div class="row">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Availability" formControlName="availability">
           </mat-form-field>
-          </div>
+    </div>
+    <div class="row">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Details" formControlName="details">
+        </mat-form-field>
+    </div>
+    <div class="col">
+        <mat-form-field class="full-width">
+            <mat-select placeholder="status" formControlName="postStatus">
+                <mat-option *ngFor="let opt of statusOptions" [value]="opt">
+                    {{ opt }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Submit</button>
+    </mat-card-actions>
+</form>
+<app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+</mat-card>
+
+

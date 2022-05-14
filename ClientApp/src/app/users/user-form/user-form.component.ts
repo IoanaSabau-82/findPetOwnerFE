@@ -17,7 +17,6 @@ export class UserFormComponent{
     phone: ['',[Validators.required,Validators.pattern("^[0-9\-]+$")]],
     address: ['',Validators.maxLength(50)]
   });
-
  
   constructor(private usersService :UsersService, private fb:FormBuilder) {
    }
@@ -26,9 +25,9 @@ export class UserFormComponent{
     console.log(this.userForm)
     this.usersService.post(this.userForm.value).subscribe();
   }
-  /*get firstName(){
+  get firstName(){
     return this.userForm.get('firstName')
-  }*/
+  }
 
   get lastName(){
     return this.userForm.get('lastName')
@@ -45,7 +44,7 @@ export class UserFormComponent{
   get address(){
     return this.userForm.get('address')
   }
-}
+
 
 //this.usersService.getEntity("D2743AC3-83A5-40A9-324D-08DA236C3BCC").subscribe((x:any) => console.log(x));
 /*this.usersService.put("62FCFD26-63DD-44D4-B573-B663DDA878FB",{
@@ -55,3 +54,5 @@ export class UserFormComponent{
   phone: '0750400400',
   address: "Oradea"
 }).subscribe();*/
+
+}

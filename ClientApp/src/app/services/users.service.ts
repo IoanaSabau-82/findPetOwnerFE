@@ -22,12 +22,18 @@ export class UsersService {
     }
 
     post(item: any): Observable<any> {
-      return this.http.post(this.apiUsersUrl,item)
+      return this.http.post(`${this.apiUsersUrl}`,item)
     }
 
     put(id:string,item:any): Observable<any>{
       return this.http.put(`${this.apiUsersUrl}/${id}`,item)
     }
+
+    //posts calls 
+    postPost(item: any): Observable<any> {
+      return this.http.post(`${this.apiPostsUrl}`,item)
+    }
+
 
 //should replace any with needed object!
 //daca nu merg metodele incearca dupa verb <any>
