@@ -3,6 +3,7 @@
     <mat-label>{{ label }}</mat-label>
   
     <ng-content></ng-content>
+    
     <mat-hint align="end">use between 3 and 25 characters, letters only</mat-hint>
    <!--<mat-hint align="end">use between 3 and 25 characters, letters only {{input.value.length || 0}}/25</mat-hint>-->
    <mat-error *ngIf="!formField.valid&&(formField.dirty||formField.touched)">

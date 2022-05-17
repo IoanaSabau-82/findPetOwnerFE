@@ -28,7 +28,7 @@ export class UploadComponent implements OnInit {
       return formData.append('file'+index, file, file.name);
     });
     
-    this.http.post('https://localhost:7172/api/Upload', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('https://localhost:7172/api/Blob', formData, {reportProgress: true, observe: 'events'})
       .subscribe({
         next: (event) => {
         if (event.type === HttpEventType.UploadProgress && event.total)

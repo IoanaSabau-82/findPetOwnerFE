@@ -1,0 +1,14 @@
+[
+    {
+        "code":0,
+        "status":"Scheduled"
+    },
+    {
+        "code":1,
+        "status":"Cancelled"
+    },
+    {
+        "code":2,
+        "status":"Completed"
+    }
+]

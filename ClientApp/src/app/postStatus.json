@@ -1,0 +1,26 @@
+[
+    {
+        "code":0,
+        "status":"Open"
+    },
+    {
+        "code":1,
+        "status":"Pending"
+    },
+    {
+        "code":2,
+        "status":"CipFound"
+    },
+    {
+        "code":3,
+        "status":"NoCip"
+    },
+    {
+        "code":4,
+        "status":"OpenForAdoption"
+    },
+    {
+        "code":5,
+        "status":"Closed"
+    }
+]

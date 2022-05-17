@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { IPostModel } from 'src/app/models/posts_interface';
+import { Component} from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
+import postStatusData from 'src/app/postStatus.json';
 
 @Component({
   selector: 'app-post-form',
@@ -19,17 +19,13 @@ export class PostFormComponent{
     postStatus:[0],
   });
 
-  post!: IPostModel;
   response!: {'filesUrls':{'url':string}[]};
-  isCreate!: boolean;
 
-  statusOptions = [0,1,2,3];
+  statusOptions = postStatusData;
   constructor(private usersService :UsersService, private fb:FormBuilder) { }
 
 onSubmit():void {
-  console.log("on submit is called",this.response);
   this.postForm.addControl('pictures',this.fb.control(this.response.filesUrls, [Validators.required]));
-  console.log(this.postForm)
   this.usersService.postPost(this.postForm.value).subscribe();
 }
 
@@ -50,11 +46,12 @@ get details(){
 }
 
 get status(){
-  return this.postForm.get('details')
+  return this.postForm.get('postStatus')
 }
 
 uploadFinished = (event: any) => { 
 this.response = event;
+console.log(this.response);
 }
 }
 
