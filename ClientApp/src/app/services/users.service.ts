@@ -63,7 +63,7 @@ export class UsersService {
       return this.http.get(`${this.apiAssignedtoPostsUrl}/${id}`);
     }
 
-    getAssignments(): Observable<any>{
+    getOpenAssignments(): Observable<any>{
       return this.http.get(this.apiAssignedtoPostsUrl);
     }
 

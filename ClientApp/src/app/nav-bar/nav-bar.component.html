@@ -5,9 +5,10 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item href="#">Account details</a>
+      <a mat-list-item href={{linkAll}}>All posts</a>
+      <a mat-list-item href={{linkUserOnly}}>User posts</a>
+      <a mat-list-item href="..">Back</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -22,6 +23,6 @@
       </button>
       <span>FindPetOwner</span>
     </mat-toolbar>
-   <p>content here</p>
+    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

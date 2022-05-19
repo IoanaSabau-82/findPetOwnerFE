@@ -8,6 +8,7 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import { IPostModel } from 'src/app/models/posts_interface';
 import { DataExchangeService } from 'src/app/services/data-exchange.service';
 import { UsersService } from 'src/app/services/users.service';
+import postStatusData from 'src/app/postStatus.json';
 
 @Component({
   selector: 'app-posts-for-volunteers',
@@ -17,24 +18,26 @@ import { UsersService } from 'src/app/services/users.service';
 
 export class PostsForVolunteersComponent implements OnInit{
   displayedColumns = ['createdBy','phone', 'address', 'details', 'availability','pictures'];
-  dataSource!:Observable<IPostModel[]>;
   data: IPostModel[] = [];
   clickedRows = new Set<IPostModel>();
   row:any;
 
+  linkAll = 'posts-for-volunteers';
+  linkUsersOnly = 'posts-for-volunteers-by-account';
+
   constructor(private usersService :UsersService, private router:Router, private dataExchange: DataExchangeService) {
-    this.usersService.getPosts().subscribe( x => {this.data = x;console.log(this.data)});
+    this.usersService.getOpenAssignments().subscribe( x => {this.data = x;console.log(this.data)});
   }
 
   ngOnInit(): void {
   }
 
   clickEvent(){
-    return this.router.navigateByUrl('/users/assignment-form');
+    return this.router.navigateByUrl('/assignment-form');
   }
 
   onRowClicked(row:any) {
     console.log('Row clicked: ', row.id);
-    this.dataExchange.assignmentFormData = row.id
+    this.dataExchange.assignmentFormPostId = {id:row.id};
 }
 }

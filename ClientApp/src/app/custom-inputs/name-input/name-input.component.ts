@@ -7,7 +7,7 @@ import { MatFormField, MatFormFieldControl } from '@angular/material/form-field'
   templateUrl: './name-input.component.html',
   styleUrls: ['./name-input.component.css']
 })
-export class TextInputComponent implements OnInit{
+export class NameInputComponent implements OnInit{
 
   @Input()
   label: string ="";

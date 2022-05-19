@@ -1,4 +1,4 @@
-
+<app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
 <div class="example-container mat-elevation-z8">
     <div class="example-table-container">
   
@@ -30,11 +30,11 @@
         </ng-container>
         <ng-container matColumnDef="scheduledTime">
           <th mat-header-cell *matHeaderCellDef>scheduled time</th>
-          <td mat-cell *matCellDef="let row">{{row.scheduledTime}}</td>
+          <td mat-cell *matCellDef="let row" >{{row.scheduledTime|date: "dd MMM hh:mm"}}</td>
         </ng-container>
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>status</th>
-          <td mat-cell *matCellDef="let row">{{row.assignedStatus}}</td>
+          <td mat-cell *matCellDef="let row">{{row.assignedStatus|assignedStatusPipe}}</td>
         </ng-container>
         
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -49,3 +49,4 @@
     </div>
   
   </div>
+</app-nav-bar>

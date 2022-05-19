@@ -44,15 +44,4 @@ export class UserFormComponent{
   get address(){
     return this.userForm.get('address')
   }
-
-
-//this.usersService.getEntity("D2743AC3-83A5-40A9-324D-08DA236C3BCC").subscribe((x:any) => console.log(x));
-/*this.usersService.put("62FCFD26-63DD-44D4-B573-B663DDA878FB",{
-  firstName: 'Dog', 
-  lastName: 'Grey', 
-  email: 'example@mail.com', 
-  phone: '0750400400',
-  address: "Oradea"
-}).subscribe();*/
-
 }
