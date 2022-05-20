@@ -1,13 +1,11 @@
-<app-nav-bar>
-<div *ngFor="let post of posts|async">
-<mat-card class="example-card">
-    <mat-card-title-group>
-        <mat-card-title>{{post.createdBy.name}}</mat-card-title>
-        <mat-card-subtitle>data postarii?</mat-card-subtitle>
-    </mat-card-title-group>
-    <img mat-card-image src = "/assets/images/akela.jpg" class="example-card">
-    <mat-card-content>{{post.details}}</mat-card-content>
-</mat-card>
-</div>
+<app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
+    <div *ngFor="let post of posts|async" class="center">
+        <app-card-input [name]="post.createdBy.name" [date]="post.createdOn" [pictures]="post.pictures[0].url" [details]="post.details" [status]="post.postStatus">
+        </app-card-input>
+    </div>
+        <div style="font-size:15px;bottom: 0;position: fixed; right: 20%;">
+            <a mat-button routerLink="post-form"><fa-icon [icon]="faPenToSquare" size="3x"></fa-icon></a>
+
+        </div>    
 </app-nav-bar>
 

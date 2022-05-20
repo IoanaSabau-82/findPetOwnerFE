@@ -1,31 +1,44 @@
-import { Component} from '@angular/core';
+import { Component, EventEmitter, OnChanges, Output, SimpleChanges} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import postStatusData from 'src/app/postStatus.json';
+import { DataExchangeService } from '../services/data-exchange.service';
+
 
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.css']
 })
-export class PostFormComponent{
+export class PostFormComponent implements OnChanges{
+
+
+  @Output() addressInput: EventEmitter<number> = new EventEmitter()
+  files:any[]=[];
 
   postForm = this.fb.group({
-    createdBy: [{'id':'81B4F391-AF27-4424-322D-08DA2370E543'}],
-    phone: ['07500563'],
-    address:['Oradea'],
-    availability:['oricand'],
-    details:['gasit catel in zona garii'],
-    postStatus:[0],
+    createdBy: [{'id':this.data.userFormData.id}],
+    phone: [this.data.userFormData.phone,[Validators.required]],
+    address:[this.data.userFormData.address,[Validators.required]],
+    availability:[],
+    details:['',[Validators.required]],
+    postStatus:[0,[Validators.required]],
+    cipId:[0,[Validators.required]]
   });
 
-  response!: {'filesUrls':{'url':string}[]};
+  response!: {'url':string[]};
 
   statusOptions = postStatusData;
-  constructor(private usersService :UsersService, private fb:FormBuilder) { }
+  constructor(private usersService :UsersService, private fb:FormBuilder, private data: DataExchangeService) { 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.addressInput.emit(this.address?.value)
+  }
 
 onSubmit():void {
-  this.postForm.addControl('pictures',this.fb.control(this.response.filesUrls, [Validators.required]));
+  this.postForm.addControl('pictures',this.fb.control(this.files.flat(), [Validators.required]));
+  console.log(this.postForm)
   this.usersService.postPost(this.postForm.value).subscribe();
 }
 
@@ -50,8 +63,9 @@ get status(){
 }
 
 uploadFinished = (event: any) => { 
-this.response = event;
-console.log(this.response);
+this.response = event.filesUrls;
+this.files.push(this.response);
+console.log(this.files);
 }
 }
 

@@ -1,3 +1,13 @@
 .file-input {
   display: none;
 }
+
+.upload-box{
+  font-family: arial;
+  font-size: 24px;
+  width: 350px;
+  height: 200px;
+  outline: dashed 1px black;
+  /* Setup */
+  position: relative;
+}

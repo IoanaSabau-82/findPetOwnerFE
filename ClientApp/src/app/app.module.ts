@@ -46,6 +46,10 @@ import { MatCardModule } from '@angular/material/card';
 import { DataExchangeService } from './services/data-exchange.service';
 import { AssignedStatusPipe } from './pipes/assigned-status-pipe';
 import { PostStatusPipePipe } from './pipes/post-status-pipe.pipe';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CardInputComponent } from './custom-inputs/card-input/card-input.component';
+import { UploadDirective } from './directives/upload.directive';
 
 
 @NgModule({
@@ -65,7 +69,8 @@ import { PostStatusPipePipe } from './pipes/post-status-pipe.pipe';
     NameInputComponent,
     AssignedStatusPipe,
     PostStatusPipePipe,
-
+    CardInputComponent,
+    UploadDirective,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +113,9 @@ import { PostStatusPipePipe } from './pipes/post-status-pipe.pipe';
     NgxMatNativeDateModule,
     MatCardModule,
     MatInputModule,
+    MatExpansionModule,
+    FontAwesomeModule,
+
 
   ],
   providers: [UsersService, DataExchangeService],

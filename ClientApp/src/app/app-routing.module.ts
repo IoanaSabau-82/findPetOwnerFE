@@ -13,9 +13,11 @@ const routes: Routes = [
   {path: 'posts-for-volunteers', component: PostsForVolunteersComponent},
   {path: 'posts-for-volunteers-by-account', component: PostsForVolunteersByAccountComponent},
   {path: 'user-form', component: UserFormComponent},
-  {path: 'post-form', component: PostFormComponent},
+  {path: 'posts/post-form', component: PostFormComponent},
   {path: 'assignment-form', component: AssignmentFormComponent},
   {path: 'posts', component: PostsComponent},
+  {path: 'posts-by-account', component: PostsComponent},
+
   //{path: '**', de facut, pathMatch: 'full', }
 ];
 

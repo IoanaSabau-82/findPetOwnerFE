@@ -17,16 +17,19 @@
     </div>
     <div class="row">
           <mat-form-field class="full-width" appearance="fill" >
+            <mat-label>availability</mat-label>
             <input matInput placeholder="Availability" formControlName="availability">
           </mat-form-field>
     </div>
     <div class="row">
         <mat-form-field class="full-width" appearance="fill">
+            <mat-label>details</mat-label>
             <input matInput placeholder="Details" formControlName="details">
         </mat-form-field>
     </div>
     <div class="col">
         <mat-form-field class="full-width" appearance="fill">
+            <mat-label>status</mat-label>
             <mat-select placeholder="status" formControlName="postStatus">
                 <mat-option *ngFor="let opt of statusOptions" [value]="opt.code">
                     {{ opt.status }}
@@ -40,5 +43,10 @@
     </mat-card-actions>
 </form>
 </mat-card>
+
+
+
+
+
 
 

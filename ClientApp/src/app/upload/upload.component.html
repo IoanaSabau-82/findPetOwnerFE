@@ -1,14 +1,16 @@
-<div class="row" style="margin-bottom:15px;">
-  <div class="col-md-3">
+<div class="row">
+  <div class="col">
+    <div class="upload-box" >
+      <div style="color: rgb(132, 173, 214); position: absolute;top:10%; left:25%;margin: auto;">DRAG AND DROP</div>
+    <div style="font-size: 120px; color: rgb(132, 173, 214); position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" appUpload (onFileDropped)="uploadFile($event)">
+    <fa-icon [icon]="faCloudArrowUp"></fa-icon>
+    </div>
     <input type="file" #file placeholder="Choose files" (change)="uploadFile(file.files)" multiple style="display:none;">
-    <button type="button" class="btn btn-success" (click)="file.click()">Upload Files</button>
+    <button style="color: rgb(132, 173, 214); position: absolute;bottom: -5%;left: 50%;transform: translate(-50%, -50%);" mat-stroked-button type="button" (click)="file.click()">OR CLICK TO SELECT</button>
   </div>
-  <div class="col-md-4">
-    <span class="upload" *ngIf="progress > 0">
-      {{progress}}%
-    </span>
-    <span class="upload" *ngIf="message">
-      {{message}}
-    </span>
   </div>
-</div>
+  <div class="col">
+    <div *ngFor="let file of files">
+      <div style="color: rgb(29, 123, 218);">{{file}}
+    </div>
+  </div> 

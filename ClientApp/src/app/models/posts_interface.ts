@@ -7,5 +7,7 @@ export interface IPostModel{
     details: string;
     postStatus: number;
     pictures: {url:string}[];
+    createdOn:Date;
+    cipId: number;
 } 
 
