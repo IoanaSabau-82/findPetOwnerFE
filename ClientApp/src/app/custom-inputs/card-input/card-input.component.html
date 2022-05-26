@@ -1,9 +1,38 @@
 <mat-card class="example-card">
     <mat-card-title-group>
-        <mat-card-title>{{name}}</mat-card-title>
-        <mat-card-subtitle>{{date|date}}</mat-card-subtitle>
+        <button *ngIf="formType" mat-icon-button aria-label="Example icon button with a vertical three dot icon" [matMenuTriggerFor]="matmenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        <mat-menu #matmenu="matMenu">
+            <a button href="posts/post-form" mat-menu-item (click)="onClickUpdate">Update</a>
+            <a button mat-menu-item (click)="openDialog()">Delete</a>
+        </mat-menu>
+        <mat-card-title>{{post.createdBy.name}}</mat-card-title>
+        <mat-card-subtitle>{{post.createdOn|date}}</mat-card-subtitle>
     </mat-card-title-group>
-    <mat-card-content>{{details}}</mat-card-content>
-    <img mat-card-image src = {{pictures}} class="example-card">
-    <mat-card-content>{{status|postStatusPipe}}</mat-card-content>
+    <mat-card-content>{{post.details}}</mat-card-content>
+    <mat-card-content *ngIf="post.pictures.length>0; else noPicture">
+        <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2">
+            <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesOdd[i].cols" [rowspan]="tilesOdd[i].rows">
+            <img mat-card-image src={{pic.url}}>
+        </mat-grid-tile>
+          </mat-grid-list> 
+          <ng-template #even>
+            <mat-grid-list cols="2">
+                <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesEven[i].cols" [rowspan]="tilesEven[i].rows">
+                <img mat-card-image src={{pic.url}}>
+            </mat-grid-tile>
+        </mat-grid-list> 
+        </ng-template>
+    </mat-card-content>
+    <ng-template #noPicture>
+        <img mat-card-image src="https://findpetowner.blob.core.windows.net/file-container/no-image-available.png" class="example-card">
+    </ng-template>
+
+        <mat-card-actions align="end">
+            <div class="displayStatus">
+                {{post.postStatus|postStatusPipe}} 
+            </div>
+        </mat-card-actions>
+
 </mat-card>

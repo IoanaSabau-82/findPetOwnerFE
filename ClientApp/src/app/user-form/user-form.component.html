@@ -1,8 +1,7 @@
 
-
+<div class="container">
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-
-    <mat-card class="user-form">
+    <div class="user-form">
         <div class="row">
             <div class="col">
                 <app-name-input [label]="'first name'">
@@ -46,7 +45,8 @@
         </div>
         <mat-card-actions>
             <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+            <button mat-raised-button color="primary" onclick="history.back()">Back</button>
         </mat-card-actions>
-    </mat-card>
+    </div>
 </form>
-
+</div>

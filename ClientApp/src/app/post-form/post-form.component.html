@@ -1,20 +1,36 @@
-<mat-card class="user-form">
+<div class="container">
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-
+    <div class="user-form">
     <div class="row">
         <div class="col">
             <app-phone-input [label]="'phone'">
                 <input matInput type="text" name="phone" formControlName="phone">
             </app-phone-input>
         </div>
-    </div>
-        <div class="row">
-            <div class="col">
-            <app-address-input [label]="'address'">
-                <input matInput #input type="text" name="address" formControlName="address">
-            </app-address-input>
+        <div class="col">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>status</mat-label>
+                <mat-select placeholder="status" formControlName="postStatus">
+                    <mat-option *ngFor="let opt of statusOptions" [value]="opt.code">
+                        {{ opt.status }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>cip number</mat-label>
+                <input matInput type="text" name="cipId" formControlName="cipId">
+            </mat-form-field>  
         </div>
     </div>
+        <div class="row">
+                <div class="col">
+                <app-address-input [label]="'address'">
+                    <input matInput #input type="text" name="address" formControlName="address">
+                </app-address-input>
+            </div>
+        </div>
     <div class="row">
           <mat-form-field class="full-width" appearance="fill" >
             <mat-label>availability</mat-label>
@@ -27,22 +43,14 @@
             <input matInput placeholder="Details" formControlName="details">
         </mat-form-field>
     </div>
-    <div class="col">
-        <mat-form-field class="full-width" appearance="fill">
-            <mat-label>status</mat-label>
-            <mat-select placeholder="status" formControlName="postStatus">
-                <mat-option *ngFor="let opt of statusOptions" [value]="opt.code">
-                    {{ opt.status }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
     <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
     <mat-card-actions>
         <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Submit</button>
+        <button mat-raised-button color="primary" onclick="history.back()">Back</button>
     </mat-card-actions>
+    </div>
 </form>
-</mat-card>
+</div>
 
 
 

@@ -2,9 +2,23 @@
   width: 100%;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-form {
-  min-width: 120px;
-  margin: 20px auto;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border: 1px solid #c5bdbd;
+  padding: 20px;
+  width: 55%;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
 
 .row {
@@ -21,6 +35,9 @@
   margin-right: 0;
 }
 
+.mat-raised-button{
+  margin-left: 5px;
+}
 
 
 

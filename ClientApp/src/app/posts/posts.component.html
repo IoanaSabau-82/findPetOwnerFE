@@ -1,11 +1,14 @@
 <app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
+    <div>
+        <button (click)="getFilteredItems(1)">filter by status</button>
+    </div>
+
     <div *ngFor="let post of posts|async" class="center">
-        <app-card-input [name]="post.createdBy.name" [date]="post.createdOn" [pictures]="post.pictures[0].url" [details]="post.details" [status]="post.postStatus">
+        <app-card-input [post]="post">
         </app-card-input>
     </div>
-        <div style="font-size:15px;bottom: 0;position: fixed; right: 20%;">
-            <a mat-button routerLink="post-form"><fa-icon [icon]="faPenToSquare" size="3x"></fa-icon></a>
-
-        </div>    
+        <div style="bottom: 1%;position: fixed; right: 20%;">
+            <a mat-flat-button routerLink="post-form" ><fa-icon [icon]="faPlus" style="font-size: 40px;color:#3f51b5;"></fa-icon></a>
+        </div>
+        
 </app-nav-bar>
-

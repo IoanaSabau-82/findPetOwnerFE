@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAssignedToPost } from '../models/assigned-to-post';
@@ -8,9 +8,9 @@ export class UsersService {
 
   apiUsersUrl = "https://localhost:7172/api/Users"
   apiPostsUrl = "https://localhost:7172/api/FoundPetPosts"
+  apiUserPostsUrl = "https://localhost:7172/api/FoundPetPosts/posts"
   apiAssignedtoPostsUrl = "https://localhost:7172/api/AssignedVolunteers"
   apiUserAssignedtoPostsUrl = "https://localhost:7172/api/AssignedVolunteers/posts"
-
   apiBlobUrl = "https://localhost:7172/api/Blob"
 
   constructor(private http: HttpClient) { }
@@ -41,7 +41,9 @@ export class UsersService {
     getPost(id:string): Observable<any>{
       return this.http.get(`${this.apiPostsUrl}/${id}`);
     }
-
+    getUserPosts(createdById:string): Observable<any>{
+      return this.http.get(`${this.apiUserPostsUrl}/${createdById}`);
+    }
     getPosts(): Observable<any>{
       return this.http.get(this.apiPostsUrl);
     }
@@ -76,17 +78,16 @@ export class UsersService {
       return this.http.get(`${this.apiBlobUrl}/${name}`);
     }
 
+  //filters
+  search(term:string):Observable<any[]>{
+    const params=new HttpParams({fromString: 'address=term'});
+    return this.http.get<any[]>(this.apiPostsUrl,{params});
 
-
-
-//should replace any with needed object!
-//daca nu merg metodele incearca dupa verb <any>
-
-  /*
-    search(name: string): Observable<Hero[]> {
-      const params = new HttpParams();
-      return this.http.get<Hero[]>(this.apiUrl, { params });
+/*
+    or     return this.httpClient.request('GET', this.heroesUrl, {responseType:'json', params});
     }*/
-    
+
+
+ }
 
 }

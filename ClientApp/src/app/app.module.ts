@@ -50,7 +50,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardInputComponent } from './custom-inputs/card-input/card-input.component';
 import { UploadDirective } from './directives/upload.directive';
-
+import { PostsByAccountComponent } from './posts-by-account/posts-by-account.component';
+import { PostDeleteDialogComponent } from './post-delete-dialog/post-delete-dialog.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ImagesGridComponent } from './images-grid/images-grid.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +75,9 @@ import { UploadDirective } from './directives/upload.directive';
     PostStatusPipePipe,
     CardInputComponent,
     UploadDirective,
+    PostsByAccountComponent,
+    PostDeleteDialogComponent,
+    ImagesGridComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +122,9 @@ import { UploadDirective } from './directives/upload.directive';
     MatInputModule,
     MatExpansionModule,
     FontAwesomeModule,
-
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatSlideToggleModule,
 
   ],
   providers: [UsersService, DataExchangeService],

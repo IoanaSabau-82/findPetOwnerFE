@@ -9,6 +9,7 @@ import { IPostModel } from 'src/app/models/posts_interface';
 import { DataExchangeService } from 'src/app/services/data-exchange.service';
 import { UsersService } from 'src/app/services/users.service';
 import postStatusData from 'src/app/postStatus.json';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-posts-for-volunteers',
@@ -16,20 +17,28 @@ import postStatusData from 'src/app/postStatus.json';
   styleUrls: ['./posts-for-volunteers.component.css']
 })
 
-export class PostsForVolunteersComponent implements OnInit{
-  displayedColumns = ['createdBy','phone', 'address', 'details', 'availability','pictures'];
-  data: IPostModel[] = [];
+export class PostsForVolunteersComponent implements OnInit, AfterViewInit{
+  displayedColumns = ['createdBy','phone', 'address', 'details', 'availability'];
   clickedRows = new Set<IPostModel>();
   row:any;
+
+  dataSource = new MatTableDataSource<IPostModel>();
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   linkAll = 'posts-for-volunteers';
   linkUsersOnly = 'posts-for-volunteers-by-account';
 
   constructor(private usersService :UsersService, private router:Router, private dataExchange: DataExchangeService) {
-    this.usersService.getOpenAssignments().subscribe( x => {this.data = x;console.log(this.data)});
+    this.usersService.getOpenAssignments(). subscribe(res => {
+      this.dataSource.data = res as IPostModel[]});
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   clickEvent(){
@@ -37,7 +46,7 @@ export class PostsForVolunteersComponent implements OnInit{
   }
 
   onRowClicked(row:any) {
-    console.log('Row clicked: ', row.id);
-    this.dataExchange.assignmentFormPostId = {id:row.id};
+    console.log('Row clicked: ', row);
+    this.dataExchange.postForm = row;
 }
 }

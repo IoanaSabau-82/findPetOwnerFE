@@ -31,31 +31,33 @@ export class AssignmentFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (this.dataExchange.assignmentFormPostId==null){
+    if (!this.dataExchange.postForm){
       this.updateAssignment();
       this.update = true;
+      console.log('chem update',this.dataExchange.assignmentForm)
     }
     else
     this.createAssignment();
-    this.dataExchange.assignmentFormPostId=null;
   }
 
 createAssignment():void{
   this.assignmentForm.setValue({
     assignedTo: this.dataExchange.volunteer,
-    post: this.dataExchange.assignmentFormPostId,
+    post: this.dataExchange.postForm,
     scheduledTime: this.minDate,
     assignedStatus: 0
  });
+  this.dataExchange.postForm=null;
 }
 
 updateAssignment():void{
   this.assignmentForm.setValue({
     assignedTo: this.dataExchange.volunteer,
-    post: {id:this.dataExchange.assignmentForm.post.id},
+    post: this.dataExchange.assignmentForm.post,
     scheduledTime: this.minDate,
-    assignedStatus: 0
+    assignedStatus: this.assignedStatus,
  });
+ this.dataExchange.assignmentForm=null;
 }
 
 onSubmit():void {

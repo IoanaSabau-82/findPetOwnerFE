@@ -43,7 +43,6 @@
     max-height: 64px;
   }
     
-  
   .demo-table {
     width: 100%;
   }
@@ -60,4 +59,9 @@
   
   .demo-row-is-clicked {
     font-weight: bold;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
   }
