@@ -1,21 +1,13 @@
 
 <div class="container">
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="user-form">
-        <div class="row">
-            <div class="col">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <app-name-input [label]="'first name'">
                     <input matInput formControlName="firstName" />
                   </app-name-input>
-            </div>
-            <div class="col">
                 <app-name-input [label]="'last name'">
                     <input matInput formControlName="lastName" />
                   </app-name-input>           
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
                 <mat-form-field class="full-width" appearance="fill">
                 <mat-label>email</mat-label>
                 <input matInput #input type="email" name="email" formControlName="email">
@@ -29,24 +21,16 @@
                     </mat-error>
                 </mat-error>
             </mat-form-field>
-            </div>
-            <div class="col">
                 <app-phone-input [label]="'phone'">
                     <input matInput type="text" name="phone" formControlName="phone">
                 </app-phone-input>    
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
                 <app-address-input [label]="'address'">
                     <input matInput #input type="text" name="address" formControlName="address">
                 </app-address-input>
-            </div>
-        </div>
         <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
-            <button mat-raised-button color="primary" onclick="history.back()">Back</button>
+            <button mat-raised-button style="margin: 1px;" color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+            <button mat-raised-button style="margin: 1px;" color="primary" onclick="history.back()">Back</button>
         </mat-card-actions>
-    </div>
 </form>
+</div>
 </div>

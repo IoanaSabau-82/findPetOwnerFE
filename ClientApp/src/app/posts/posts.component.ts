@@ -6,6 +6,8 @@ import { UsersService } from 'src/app/services/users.service';
 import { DataExchangeService } from '../services/data-exchange.service';
 import { map, switchMap, tap } from "rxjs/operators";
 import { MatChip } from '@angular/material/chips';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -21,25 +23,29 @@ export class PostsComponent implements OnInit {
 
   posts!: Observable<IPostModel[]>;
   filteredPosts!: Observable<any>;
-  refreshPosts = new BehaviorSubject<boolean>(true);
-  checked = false;
-  options = [0,1,2,3,4,5]
+  //refreshPosts = new BehaviorSubject<boolean>(true);
+  //checked = false;
+  optionsList = [0,1,2,3,4,5];
+  selectedElements = [];
+  options = new FormControl();
 
-
-  constructor(private usersService :UsersService, public dataExchange: DataExchangeService) { }
+  constructor(private usersService :UsersService, public dataExchange: DataExchangeService, private router: Router) { }
 
   ngOnInit(): void {
     this.posts = this.usersService.getPosts(); 
 }
 
-getFilteredItems(postStatus: number) {
-
- this.posts=this.posts.pipe(map(posts=>posts.filter((post: { postStatus: number; })=>post.postStatus===1)));
-
+getFilteredItems() {
+console.log(this.options.value)
+ this.posts=this.posts.pipe(map(posts=>posts.filter((post: { postStatus: number; })=>this.options.value.map(Number).includes(post.postStatus))));
 }
 
-toggleSelection(chip: MatChip) {
-  chip.toggleSelected();
+clearFilter(){
+  this.posts = this.usersService.getPosts(); 
+}
+
+callPostForm(){
+this.router.navigate(['post-form'])
 }
 
 }

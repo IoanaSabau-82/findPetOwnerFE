@@ -1,53 +1,55 @@
 <div class="container">
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-    <div class="user-form">
-    <div class="row">
-        <div class="col">
-            <app-phone-input [label]="'phone'">
+    <div class="post-form">
+            <app-phone-input class="full-width" [label]="'phone'">
                 <input matInput type="text" name="phone" formControlName="phone">
             </app-phone-input>
-        </div>
-        <div class="col">
-            <mat-form-field class="full-width" appearance="fill">
-                <mat-label>status</mat-label>
-                <mat-select placeholder="status" formControlName="postStatus">
-                    <mat-option *ngFor="let opt of statusOptions" [value]="opt.code">
-                        {{ opt.status }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>status</mat-label>
+                    <mat-select placeholder="status" formControlName="postStatus">
+                        <mat-option *ngFor="let opt of statusOptions" [value]="opt.code">
+                            {{ opt.status }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label>cip number</mat-label>
                 <input matInput type="text" name="cipId" formControlName="cipId">
             </mat-form-field>  
-        </div>
-    </div>
-        <div class="row">
-                <div class="col">
-                <app-address-input [label]="'address'">
+            </div>
+                <app-address-input class="full-width" [label]="'address'">
                     <input matInput #input type="text" name="address" formControlName="address">
                 </app-address-input>
-            </div>
-        </div>
-    <div class="row">
           <mat-form-field class="full-width" appearance="fill" >
             <mat-label>availability</mat-label>
             <input matInput placeholder="Availability" formControlName="availability">
           </mat-form-field>
-    </div>
-    <div class="row">
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>details</mat-label>
             <input matInput placeholder="Details" formControlName="details">
         </mat-form-field>
-    </div>
     <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+    <div *ngIf="pictures">
+        
+    <div class="img-parent">
+    <div class="img-child" *ngFor="let pic of pictures.value">
+        <p>{{pic.url|pictureName}}
+        <mat-icon (click)="removePicture(pic.url)" color="primary" style="bottom:0">delete</mat-icon></p>
+        
+        <img style='max-width:100%; max-height:100%;' [src]="pic.url">
+    </div>
+    </div>
+</div>
+
+    <div class="full-width">
     <mat-card-actions>
         <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Submit</button>
         <button mat-raised-button color="primary" onclick="history.back()">Back</button>
     </mat-card-actions>
+    </div>
     </div>
 </form>
 </div>

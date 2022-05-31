@@ -6,6 +6,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+ height: 100%;
+ width: 100%;
 }
 
 .user-form {
@@ -14,27 +16,22 @@
   -moz-border-radius: 5px 5px 5px 5px;
   border: 1px solid #c5bdbd;
   padding: 20px;
-  width: 55%;
+  max-width: 45%;
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  min-width: 320px;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
+@media only screen and (max-width: 600px) {
+  .user-form {
+    border: none;
+    padding: none;
+    display: flex;
+    flex-direction: column ;
+    width: 100vw;
+    flex:1;
 }
-
-.col {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.col:last-child {
-  margin-right: 0;
-}
-
-.mat-raised-button{
-  margin-left: 5px;
 }

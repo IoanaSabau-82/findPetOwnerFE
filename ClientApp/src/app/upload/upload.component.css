@@ -5,8 +5,8 @@
 .upload-box{
   font-family: arial;
   font-size: 24px;
-  width: 350px;
-  height: 200px;
+  min-width: 300px;
+  min-height: 200px;
   outline: 1px solid #c5bdbd;
   /* Setup */
   position: relative;
@@ -14,4 +14,11 @@
   border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .upload-box{
+
+  }
 }

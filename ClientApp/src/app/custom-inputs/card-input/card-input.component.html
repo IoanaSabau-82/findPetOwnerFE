@@ -1,38 +1,44 @@
-<mat-card class="example-card">
+<mat-card>
     <mat-card-title-group>
         <button *ngIf="formType" mat-icon-button aria-label="Example icon button with a vertical three dot icon" [matMenuTriggerFor]="matmenu">
             <mat-icon>more_vert</mat-icon>
           </button>
         <mat-menu #matmenu="matMenu">
-            <a button href="posts/post-form" mat-menu-item (click)="onClickUpdate">Update</a>
+            <a button routerLink="post-form" mat-menu-item (click)="onClickUpdate(post)">Update</a>
             <a button mat-menu-item (click)="openDialog()">Delete</a>
         </mat-menu>
         <mat-card-title>{{post.createdBy.name}}</mat-card-title>
         <mat-card-subtitle>{{post.createdOn|date}}</mat-card-subtitle>
     </mat-card-title-group>
     <mat-card-content>{{post.details}}</mat-card-content>
-    <mat-card-content *ngIf="post.pictures.length>0; else noPicture">
-        <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2">
+
+    <div *ngIf="post.pictures.length>0; else noPicture">
+        <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2" rowHeight="350px">
             <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesOdd[i].cols" [rowspan]="tilesOdd[i].rows">
-            <img mat-card-image src={{pic.url}}>
+            <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 100%;" >
         </mat-grid-tile>
-          </mat-grid-list> 
+          </mat-grid-list>
+
           <ng-template #even>
-            <mat-grid-list cols="2">
+            <mat-grid-list cols="2" rowHeight="350px">
                 <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesEven[i].cols" [rowspan]="tilesEven[i].rows">
-                <img mat-card-image src={{pic.url}}>
-            </mat-grid-tile>
+                    <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 100%;" >
+                </mat-grid-tile>
         </mat-grid-list> 
         </ng-template>
-    </mat-card-content>
+
+    </div>
+
     <ng-template #noPicture>
-        <img mat-card-image src="https://findpetowner.blob.core.windows.net/file-container/no-image-available.png" class="example-card">
+        <mat-grid-list cols="1" rowHeight="500px">
+            <mat-grid-tile>
+        <img mat-card-image src="https://findpetowner.blob.core.windows.net/file-container/no-image-available.png" style="object-fit: cover; width: 100%; height: 100%;">
+    </mat-grid-tile>
+    </mat-grid-list>
     </ng-template>
 
-        <mat-card-actions align="end">
-            <div class="displayStatus">
+        <mat-card-actions align="end" style="color: #3f51b5;font-size: 1.2rem;font-weight: 500;margin: 0.5rem;">
                 {{post.postStatus|postStatusPipe}} 
-            </div>
         </mat-card-actions>
 
 </mat-card>

@@ -2,3 +2,57 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 75px;
+}
+
+.mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6 {
+    font-size: 2rem;}
+
+.mat-list-base .mat-list-item {
+    font-size: 1.3rem;
+}
+
+.mat-card-subtitle, .mat-card-content {
+    font-size: 1.1rem;
+}
+
+.mat-body, .mat-body-1, .mat-typography .mat-body, .mat-typography .mat-body-1, .mat-typography {
+    font: 400 1rem/1.3rem;
+}
+
+.mat-form-field {
+    font-size: 1.2rem;
+}
+
+.mat-label{
+    font-size: 1.05rem;
+}
+
+.mat-form-field-subscript-wrapper {
+    font-size: 75%;
+    margin-bottom: .6667;
+  }
+
+.mat-form-field-label{
+    font-size: 75%;
+}
+
+.mat-raised-button{
+    font-size: 1rem;
+  }
+
+.mat-input-element{
+    margin-top: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+    .mat-form-field {
+        font-size: 1rem;
+
+    }
+    .mat-form-field-wrapper {
+        padding-bottom: 1.1em;
+    }
+}

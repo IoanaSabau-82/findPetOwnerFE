@@ -35,7 +35,7 @@ export class UsersService {
     }
 
     putPost(id:string,item:any): Observable<any>{
-      return this.http.put(`${this.apiUsersUrl}/${id}`,item)
+      return this.http.put(`${this.apiPostsUrl}/${id}`,item)
     }
 
     getPost(id:string): Observable<any>{
@@ -76,6 +76,9 @@ export class UsersService {
   //blobs
     getBlob(name:string): Observable<any>{
       return this.http.get(`${this.apiBlobUrl}/${name}`);
+    }
+    deleteBlob(pictureName:string){
+      return this.http.delete(`${this.apiBlobUrl}/${pictureName}`)
     }
 
   //filters

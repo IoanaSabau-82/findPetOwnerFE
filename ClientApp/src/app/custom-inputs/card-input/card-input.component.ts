@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IPostModel } from 'src/app/models/posts_interface';
 import { PostDeleteDialogComponent } from 'src/app/post-delete-dialog/post-delete-dialog.component';
@@ -42,10 +43,9 @@ export class CardInputComponent{
     {cols: 1, rows: 1},
   ];
 
-  constructor(private usersService: UsersService, public dataExchange: DataExchangeService, public dialog: MatDialog) { 
+  constructor(private usersService: UsersService, public dataExchange: DataExchangeService, public dialog: MatDialog, private router:Router) { 
 
   }
-
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostDeleteDialogComponent);
@@ -56,9 +56,10 @@ export class CardInputComponent{
       this.usersService.deletePost(this.post.id).subscribe();
     }
     });
-    }
+  }
     
-    onClickUpdate(post:IPostModel){
+    onClickUpdate(post: IPostModel){
+      this.router.navigate(['post-form'])
       this.dataExchange.postForm = post;
 }
 }

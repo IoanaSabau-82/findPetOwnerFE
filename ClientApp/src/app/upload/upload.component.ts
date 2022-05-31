@@ -23,7 +23,7 @@ export class UploadComponent implements OnInit {
   
   constructor(private http: HttpClient) { }
 
-  ngOnInit() { console.log('response')
+  ngOnInit() {
   }
   
   uploadFile = (files:any) => {

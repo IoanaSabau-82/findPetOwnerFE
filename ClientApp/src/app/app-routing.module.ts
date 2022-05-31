@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'posts-for-volunteers', component: PostsForVolunteersComponent},
   {path: 'posts-for-volunteers-by-account', component: PostsForVolunteersByAccountComponent},
   {path: 'user-form', component: UserFormComponent},
-  {path: 'posts/post-form', component: PostFormComponent},
+  {path: 'post-form', component: PostFormComponent},
   {path: 'assignment-form', component: AssignmentFormComponent},
   {path: 'posts', component: PostsComponent},
   {path: 'posts-by-account', component: PostsByAccountComponent},

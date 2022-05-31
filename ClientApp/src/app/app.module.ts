@@ -55,6 +55,7 @@ import { PostDeleteDialogComponent } from './post-delete-dialog/post-delete-dial
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ImagesGridComponent } from './images-grid/images-grid.component';
+import { PictureNamePipe } from './pipes/picture-name.pipe';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ImagesGridComponent } from './images-grid/images-grid.component';
     PostsByAccountComponent,
     PostDeleteDialogComponent,
     ImagesGridComponent,
+    PictureNamePipe,
   ],
   imports: [
     BrowserModule,

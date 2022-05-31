@@ -1,6 +1,44 @@
 
-  .center {
-    display: flex;
-    justify-content: center;
-    position: relative;
+.container {
+  width: 100;
+  /* Setup */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.child{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: right;
+}
+
+.filter{
+margin: 1%;
+}
+
+.mat-icon {
+  transform: scale(4);
+}
+
+.add-sign{
+right:23%;
+justify-content: end;
+position:fixed;
+bottom:5%;
+font:200;
+background-color: white;
+font-size: 3rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .child{
+    flex-direction: column ;
+    width: 100vw;
+    flex:1;
   }
+}
+

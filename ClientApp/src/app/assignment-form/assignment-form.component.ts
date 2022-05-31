@@ -18,60 +18,53 @@ export class AssignmentFormComponent implements OnInit{
 
   minDate = new Date();
   update = false;
-
-  assignmentForm = this.fb.group({
-    assignedTo: [],
-    post: [],
-    scheduledTime:[],
-    assignedStatus:[],
-  });
+  assignmentForm!:FormGroup
 
   assignedOptions = assignedStatusData;
   constructor(private usersService :UsersService, private fb:FormBuilder, private dataExchange: DataExchangeService,private location: Location) { 
   }
 
   ngOnInit(): void {
-    if (!this.dataExchange.postForm){
+    if (this.dataExchange.assignmentForm){
       this.updateAssignment();
       this.update = true;
-      console.log('chem update',this.dataExchange.assignmentForm)
     }
     else
     this.createAssignment();
   }
 
 createAssignment():void{
-  this.assignmentForm.setValue({
-    assignedTo: this.dataExchange.volunteer,
-    post: this.dataExchange.postForm,
-    scheduledTime: this.minDate,
+  this.assignmentForm = this.fb.group({
+    assignedTo: [this.dataExchange.volunteer],
+    post: [this.dataExchange.postForm],
+    scheduledTime: [this.minDate],
     assignedStatus: 0
  });
-  this.dataExchange.postForm=null;
 }
 
 updateAssignment():void{
-  this.assignmentForm.setValue({
-    assignedTo: this.dataExchange.volunteer,
-    post: this.dataExchange.assignmentForm.post,
-    scheduledTime: this.minDate,
-    assignedStatus: this.assignedStatus,
+  console.log(this.dataExchange.assignmentForm)
+  this.assignmentForm = this.fb.group({
+    assignedTo: [this.dataExchange.volunteer],
+    post: [this.dataExchange.assignmentForm.post],
+    scheduledTime: [this.dataExchange.assignmentForm.scheduledTime],
+    assignedStatus: [this.dataExchange.assignmentForm.assignedStatus],
  });
- this.dataExchange.assignmentForm=null;
 }
 
 onSubmit():void {
-  console.log(this.update)
   if (!this.update){
     this.usersService.postAssignment(this.assignmentForm.value).subscribe();
+    this.dataExchange.postForm=null;
   }
   else {
     console.log(this.assignmentForm.value, this.dataExchange.assignmentForm.id )
     this.usersService.putAssignment(this.dataExchange.assignmentForm.id, this.assignmentForm.value).subscribe();
+    this.dataExchange.assignmentForm=null;
   }
+  this.update=false;
   this.location.back();
 }
-
 get scheduledTime(){
   return this.assignmentForm.get('scheduledTime')
 }

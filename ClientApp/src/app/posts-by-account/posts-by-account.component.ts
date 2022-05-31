@@ -26,6 +26,6 @@ export class PostsByAccountComponent implements OnInit {
 
     ngOnInit(): void {
       this.posts = this.usersService.getUserPosts(this.dataExchange.basicUser.id);
-
 }
+
 }
