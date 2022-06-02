@@ -56,6 +56,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ImagesGridComponent } from './images-grid/images-grid.component';
 import { PictureNamePipe } from './pipes/picture-name.pipe';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,8 @@ import { PictureNamePipe } from './pipes/picture-name.pipe';
     PostDeleteDialogComponent,
     ImagesGridComponent,
     PictureNamePipe,
+
+
   ],
   imports: [
     BrowserModule,
@@ -127,6 +130,7 @@ import { PictureNamePipe } from './pipes/picture-name.pipe';
     BrowserAnimationsModule,
     MatChipsModule,
     MatSlideToggleModule,
+    GoogleMapsModule,
 
   ],
   providers: [UsersService, DataExchangeService],

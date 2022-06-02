@@ -1,11 +1,13 @@
 <app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
     <div class="container">
-    <div *ngFor="let post of posts|async" class="child">
-        <app-card-input 
-        [post]="post" 
-        [formType]="formType">
-        </app-card-input>
-        </div>
-        </div>
+        <div class="parent">
+            <div *ngFor="let post of posts|async" class="child">
+                <app-card-input 
+                [post]="post" 
+                [formType]="formType">
+                </app-card-input>
+                </div>
+            </div>
+    </div>
 
 

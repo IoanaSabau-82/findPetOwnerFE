@@ -43,7 +43,7 @@ font-size: 3rem;
 }
 
 @media only screen and (max-width: 600px) {
-  .child{
+  .parent{
     flex-direction: column ;
     width: 100vw;
     flex:1;

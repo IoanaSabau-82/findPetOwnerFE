@@ -19,7 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-body, .mat-body-1, .mat-typography .mat-body, .mat-typography .mat-body-1, .mat-typography {
-    font: 400 1rem/1.3rem;
+    font-size: 1rem;
 }
 
 .mat-form-field {
