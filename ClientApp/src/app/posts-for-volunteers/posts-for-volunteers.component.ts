@@ -10,6 +10,7 @@ import { DataExchangeService } from 'src/app/services/data-exchange.service';
 import { UsersService } from 'src/app/services/users.service';
 import postStatusData from 'src/app/postStatus.json';
 import { MatTableDataSource } from '@angular/material/table';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 
 @Component({
   selector: 'app-posts-for-volunteers',
@@ -17,36 +18,41 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./posts-for-volunteers.component.css']
 })
 
-export class PostsForVolunteersComponent implements OnInit, AfterViewInit{
-  displayedColumns = ['createdBy','phone', 'address', 'details', 'availability'];
-  clickedRows = new Set<IPostModel>();
-  row:any;
-
-  dataSource = new MatTableDataSource<IPostModel>();
-
-  @ViewChild(MatSort) sort!: MatSort;
-
+export class PostsForVolunteersComponent implements OnInit{
+  
+  post!:IPostModel
   linkAll = 'posts-for-volunteers';
   linkUsersOnly = 'posts-for-volunteers-by-account';
+  center!:google.maps.LatLngLiteral
+  posts!:any;
+
+  @ViewChild(GoogleMap, { static: false }) map!: GoogleMap
+  @ViewChild(MapInfoWindow, { static: false }) info!: MapInfoWindow
+
+  icon= {url:"https://findpetowner.blob.core.windows.net/file-container/cute-puppy-dog-sitting-26968095.jpg",
+        scaledSize: new google.maps.Size(60, 70),
+  }
 
   constructor(private usersService :UsersService, private router:Router, private dataExchange: DataExchangeService) {
-    this.usersService.getOpenAssignments(). subscribe(res => {
-      this.dataSource.data = res as IPostModel[]});
+      this.posts = this.usersService.getOpenAssignments();
+      console.log(this.posts)
   }
 
   ngOnInit(): void {
+    this.center = {
+      lat: this.dataExchange.userFormData.lat,
+      lng: this.dataExchange.userFormData.lng,
+    }
   }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
-  clickEvent(){
-    return this.router.navigateByUrl('/assignment-form');
-  }
-
-  onRowClicked(row:any) {
-    console.log('Row clicked: ', row);
-    this.dataExchange.postForm = row;
+  
+  onRowClicked(post:IPostModel) {
+    console.log('saving post data: ', post.id);
+    this.dataExchange.postForm = {id:post.id};
 }
+
+openInfo(marker: MapMarker) {
+  this.info.open(marker)
+}
+
+
 }

@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnChanges, Output, SimpleChanges} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import postStatusData from 'src/app/postStatus.json';
 import { DataExchangeService } from '../services/data-exchange.service';
 import { Location } from '@angular/common';
+import { GeocodingService } from '../services/geocoding.service';
+import { lastValueFrom, map } from 'rxjs';
 
 
 @Component({
@@ -13,9 +15,6 @@ import { Location } from '@angular/common';
 })
 export class PostFormComponent{
 
-
-  //@Output() addressInput: EventEmitter<number> = new EventEmitter()
-  //@Output() phoneInput: EventEmitter<number> = new EventEmitter()
   files:any[]=[];
   postForm!:FormGroup;
 
@@ -23,8 +22,12 @@ export class PostFormComponent{
   update=false;
   formPics!:any;
 
+  data$: any;
+  lat:any;
+  long:any;
+
   statusOptions = postStatusData;
-  constructor(private usersService :UsersService, private fb:FormBuilder, private data: DataExchangeService, private location: Location) { 
+  constructor(private usersService :UsersService, private fb:FormBuilder, private data: DataExchangeService, private location: Location, private geoLocation: GeocodingService) { 
   }
 
   ngOnInit(): void {
@@ -38,7 +41,6 @@ export class PostFormComponent{
       this.createPost();
     }
   }
-
 
 createPost():void{
 this.postForm = this.fb.group({
@@ -66,15 +68,19 @@ updatePost():void{
   console.log('files list on update', this.files)
 }
 
-  /*ngOnChanges(changes: SimpleChanges): void {
-    this.phoneInput.emit(this.phone?.value)
-    this.addressInput.emit(this.address?.value)
-  }*/
-
-onSubmit():void {
+ async onSubmit(){
+  const data$=this.geoLocation.getLocation(this.address?.value).pipe(map(x=>x.results?.map(y=>y.geometry.location)))
+  const result = await lastValueFrom(data$)
+  const firstElem = result?.shift();
+  const lat = firstElem?.lat;
+  const lng = firstElem?.lng;
+  console.log(lat, lng)
+  this.postForm.addControl('lat', new FormControl(lat));
+  this.postForm.addControl('lng', new FormControl(lng));
+  console.log(this.postForm)
   if(!this.update){
     this.postForm.addControl('pictures',this.fb.control(this.files.flat(), [Validators.required]));
-    this.usersService.postPost(this.postForm.value).subscribe();
+    this.usersService.postPost(this.postForm.value).subscribe(error=>console.log(error));
   }
   else
   {
@@ -131,7 +137,10 @@ removeItem(value:string){
   this.pictures?.value.splice(index, 1);
   console.log('after remove',this.pictures)
 }
-}
+
+}  
+
+
 
   
 

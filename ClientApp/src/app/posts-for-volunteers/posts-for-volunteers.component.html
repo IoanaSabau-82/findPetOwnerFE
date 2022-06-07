@@ -1,41 +1,24 @@
 <app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
-<div class="example-container mat-elevation-z8">
-  <div class="example-table-container">
-
-    <table mat-table [dataSource]="dataSource" class="example-table" matSort>
-
-      <ng-container matColumnDef="createdBy">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>createdBy</th>
-        <td mat-cell *matCellDef="let row">{{row.createdBy.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>phone</th>
-        <td mat-cell *matCellDef="let row">{{row.phone}}</td>
-      </ng-container>
-      <ng-container matColumnDef="address">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>address</th>
-        <td mat-cell *matCellDef="let row">{{row.address}}</td>
-      </ng-container>
-      <ng-container matColumnDef="availability">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>availability</th>
-        <td mat-cell *matCellDef="let row">{{row.availability}}</td>
-      </ng-container>
-      <ng-container matColumnDef="details">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>details</th>
-        <td mat-cell *matCellDef="let row">{{row.details}}</td>
-      </ng-container>
-      <ng-container matColumnDef="pictures">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>pictures</th>
-        <td mat-cell *matCellDef="let row" ><img *ngIf="row.pictures.length>0" src={{row.pictures[0].url}} class="smallPic"></td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns;"
-      (click)="clickEvent()"
-      (click)="onRowClicked(row)">
-  </tr>
-    </table>
+  <div class="container">
+    <div id="map">
+    <google-map   
+      height="800px"
+       width="100%" 
+       [center]="center" 
+       [zoom]="15">
+      <map-marker  #marker="mapMarker"
+      *ngFor="let post of posts|async"
+      [position]="{lat: post.lat ,lng:post.lng}"
+      [title]="post.availability"
+      [icon]="icon"
+      (mapClick)="openInfo(marker)"
+      (mapClick)="onRowClicked(post)"
+    >
+    </map-marker>
+    <map-info-window >
+      <div style="min-width: 400px;"><app-assignment-form></app-assignment-form></div>
+      </map-info-window>
+    </google-map>
   </div>
-</div>
+  </div>
 </app-nav-bar>

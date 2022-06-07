@@ -6,20 +6,7 @@
     justify-content: center;
     align-items: center;
   }
-  
-  .user-form {
-    border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    border: 1px solid #c5bdbd;
-    padding: 20px;
-    width: 45%;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-  }
-  
+
   .row {
     display: flex;
     flex-direction: row;

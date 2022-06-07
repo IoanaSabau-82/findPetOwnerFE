@@ -29,7 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
 import { PostsForVolunteersComponent } from './posts-for-volunteers/posts-for-volunteers.component';
 import { PostsForVolunteersByAccountComponent } from './posts-for-volunteers-by-account/posts-for-volunteers-by-account.component';
 import { UploadComponent } from './upload/upload.component';
@@ -56,7 +56,29 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ImagesGridComponent } from './images-grid/images-grid.component';
 import { PictureNamePipe } from './pipes/picture-name.pipe';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+
+
+const INTL_DATE_INPUT_FORMAT = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hourCycle: 'h23',
+  hour: '2-digit',
+  minute: '2-digit',
+};
+
+const DATE_TIME_FORMAT = {
+  parse: {
+    dateInput:  INTL_DATE_INPUT_FORMAT,
+  },
+  display: {
+    dateInput:  INTL_DATE_INPUT_FORMAT,
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  }
+}
 
 @NgModule({
   declarations: [
@@ -132,8 +154,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatSlideToggleModule,
     GoogleMapsModule,
 
+
   ],
-  providers: [UsersService, DataExchangeService],
+  providers: [UsersService, DataExchangeService,{provide: NGX_MAT_DATE_FORMATS, useValue: DATE_TIME_FORMAT}],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

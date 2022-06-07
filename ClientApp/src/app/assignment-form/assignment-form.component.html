@@ -1,6 +1,6 @@
 <div class="container">
     <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
-        <div class="user-form">
+        <div >
                 <mat-form-field class="full-width" appearance="fill">
                     <mat-select placeholder="status" formControlName="assignedStatus">
                         <mat-option *ngFor="let opt of assignedOptions" [value]="opt.code">
@@ -11,7 +11,7 @@
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Choose a date</mat-label>
                     <input matInput [min]="minDate" [ngxMatDatetimePicker]="picker" formControlName="scheduledTime">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-hint>MM/DD/YYYY hh-mm</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
                     <ngx-mat-datetime-picker #picker [stepHour]="1" [stepMinute]="30"></ngx-mat-datetime-picker>
                 </mat-form-field>
