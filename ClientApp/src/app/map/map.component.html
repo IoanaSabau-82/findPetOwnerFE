@@ -1,0 +1,19 @@
+<google-map   
+height="800px"
+ width="100%" 
+ [center]="center" 
+ [zoom]="15">
+<map-marker  #marker="mapMarker"
+*ngFor="let post of posts"
+[position]="{lat: post.lat ,lng:post.lng}"
+[title]="post.availability"
+[icon]="icon"
+(mapClick)="openInfo(marker)"
+(mapClick)="onRowClicked(post)">
+
+</map-marker>
+<map-info-window>
+
+</map-info-window>
+
+</google-map>

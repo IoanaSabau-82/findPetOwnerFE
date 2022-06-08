@@ -5,55 +5,25 @@ import { IPostModel } from 'src/app/models/posts_interface';
 import { DataExchangeService } from 'src/app/services/data-exchange.service';
 import { UsersService } from 'src/app/services/users.service';
 import postStatusData from 'src/app/postStatus.json';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-posts-for-volunteers-by-account',
   templateUrl: './posts-for-volunteers-by-account.component.html',
   styleUrls: ['./posts-for-volunteers-by-account.component.css']
 })
-export class PostsForVolunteersByAccountComponent implements OnInit, AfterViewInit{
-  displayedColumns = ['createdBy','phone', 'address', 'details', 'availability','scheduledTime', 'status'];
-  data: IAssignedToPost[] = [];
-  dataSource = new MatTableDataSource<IAssignedToPost>();
-
-  @ViewChild(MatSort) sort!: MatSort;
-
-  clickedRows = new Set<IAssignedToPost>();
+export class PostsForVolunteersByAccountComponent implements OnInit{
 
   statusOptions = postStatusData;
-  
-  row:any;
 
   linkAll = 'posts-for-volunteers';
   linkUsersOnly = 'posts-for-volunteers-by-account';
+  posts!:any;
+  update = true;
   
   constructor(private usersService :UsersService, private router:Router, private dataExchange: DataExchangeService) {
-
-}
-
- ngOnInit(): void {
+    this.usersService.getUserAssignments(dataExchange.volunteer.id).subscribe((result)=>{this.posts=result.map(x => ({lat:x.post.lat, lng:x.post.lng,assignedStatus:x.assignedStatus, id:x.id, scheduledTime:x.scheduledTime, postId:x.post.id}));console.log(this.posts)});
   }
-
-  ngAfterViewInit() {
-    this.usersService.getUserAssignments(this.dataExchange.volunteer.id).subscribe(res => {
-      this.dataSource.data = res as IAssignedToPost[];
-  })
-  console.log(this.dataSource)
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void {
   }
-
-  clickEvent(){
-    return this.router.navigateByUrl('/assignment-form');
   }
-
-  onRowClicked(row:any) {
-    this.dataExchange.assignmentForm = row
-    console.log('Row clicked: ', this.dataExchange.assignmentForm);
-}
-
-public doFilter = (value: string) => {
-  this.dataSource.filter = value;
-}
-}

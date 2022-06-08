@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAssignedToPost } from '../models/assigned-to-post';
+import { IPostModel } from '../models/posts_interface';
 
 @Injectable()
 export class UsersService {
@@ -65,12 +66,12 @@ export class UsersService {
       return this.http.get(`${this.apiAssignedtoPostsUrl}/${id}`);
     }
 
-    getOpenAssignments(): Observable<any>{
-      return this.http.get(this.apiAssignedtoPostsUrl);
+    getOpenAssignments(): Observable<IPostModel[]>{
+      return this.http.get<IPostModel[]>(this.apiAssignedtoPostsUrl);
     }
 
-    getUserAssignments(assignedToId:string):Observable<any>{
-      return this.http.get(`${this.apiUserAssignedtoPostsUrl}/${assignedToId}`)
+    getUserAssignments(assignedToId:string):Observable<IAssignedToPost[]>{
+      return this.http.get<IAssignedToPost[]>(`${this.apiUserAssignedtoPostsUrl}/${assignedToId}`)
     }
 
   //blobs

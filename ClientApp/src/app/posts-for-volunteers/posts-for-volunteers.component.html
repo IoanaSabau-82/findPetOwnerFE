@@ -1,24 +1,7 @@
 <app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
   <div class="container">
     <div id="map">
-    <google-map   
-      height="800px"
-       width="100%" 
-       [center]="center" 
-       [zoom]="15">
-      <map-marker  #marker="mapMarker"
-      *ngFor="let post of posts|async"
-      [position]="{lat: post.lat ,lng:post.lng}"
-      [title]="post.availability"
-      [icon]="icon"
-      (mapClick)="openInfo(marker)"
-      (mapClick)="onRowClicked(post)"
-    >
-    </map-marker>
-    <map-info-window >
-      <div style="min-width: 400px;"><app-assignment-form></app-assignment-form></div>
-      </map-info-window>
-    </google-map>
-  </div>
+      <app-map [posts]="posts" [update]="update" ></app-map>
+    </div>
   </div>
 </app-nav-bar>

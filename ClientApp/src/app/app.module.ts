@@ -57,6 +57,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ImagesGridComponent } from './images-grid/images-grid.component';
 import { PictureNamePipe } from './pipes/picture-name.pipe';
 import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { MapComponent } from './map/map.component';
 
 
 const INTL_DATE_INPUT_FORMAT = {
@@ -103,6 +104,7 @@ const DATE_TIME_FORMAT = {
     PostDeleteDialogComponent,
     ImagesGridComponent,
     PictureNamePipe,
+    MapComponent,
 
 
   ],

@@ -1,51 +1,7 @@
 <app-nav-bar [linkAll]="linkAll" [linkUserOnly]="linkUsersOnly">
-<div class="example-container mat-elevation-z8">
-    <div class="example-table-container">
-
-      <mat-form-field appearance="outline">
-        <mat-label>Filter</mat-label>
-        <input matInput type="text" (keyup)="doFilter($any($event.target).value)" placeholder="Filter">
-      </mat-form-field>
-
-      <table mat-table [dataSource]="dataSource" class="example-table" matSort>
-        <ng-container matColumnDef="createdBy">
-          <th mat-header-cell  mat-sort-header *matHeaderCellDef>createdBy</th>
-          <td mat-cell *matCellDef="let row">{{row.post.createdBy.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="phone">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>phone</th>
-          <td mat-cell *matCellDef="let row">{{row.post.phone}}</td>
-        </ng-container>
-        <ng-container matColumnDef="address">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>address</th>
-          <td mat-cell *matCellDef="let row">{{row.post.address}}</td>
-        </ng-container>
-        <ng-container matColumnDef="availability">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>availability</th>
-          <td mat-cell *matCellDef="let row">{{row.post.availability}}</td>
-        </ng-container>
-        <ng-container matColumnDef="details">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>details</th>
-          <td mat-cell *matCellDef="let row">{{row.post.details}}</td>
-        </ng-container>
-        <ng-container matColumnDef="scheduledTime">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>scheduled time</th>
-          <td mat-cell *matCellDef="let row" >{{row.scheduledTime|date: "dd MMM hh:mm"}}</td>
-        </ng-container>
-        <ng-container matColumnDef="status">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>status</th>
-          <td mat-cell *matCellDef="let row">{{row.assignedStatus|assignedStatusPipe}}</td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns;"
-        (click)="clickEvent()"
-        (click)="onRowClicked(row)">
-    ></tr>
-      </table>
+  <div class="container">
+    <div id="map">
+      <app-map [posts]="posts" [update]="update"></app-map>
     </div>
-  
   </div>
 </app-nav-bar>
