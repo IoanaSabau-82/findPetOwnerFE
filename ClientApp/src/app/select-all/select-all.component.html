@@ -1,0 +1,19 @@
+<div class="select-all">
+    <button *ngIf="toggleOn; else notChecked" mat-button (click)="toggleOn =!toggleOn" (click)="selectAllToggle()">
+        <mat-pseudo-checkbox class="mat-pseudo-checkbox mat-option-pseudo-checkbox ng-star-inserted mat-pseudo-checkbox-checked" ng-reflect-state="checked" ng-reflect-disabled="false">
+            ::after
+        </mat-pseudo-checkbox>
+        <span style="line-height: 3em; color:#3f51b5;font: 400 19px/20px Roboto, 'Helvetica Neue', sans-serif;"> Uncheck all</span>
+        <div mat-ripple="" class="mat-ripple mat-option-ripple" ng-reflect-trigger="[object HTMLElement]" ng-reflect-disabled="false"></div>
+    
+    </button>
+    <ng-template #notChecked>
+        <button mat-button (click)="toggleOn =!toggleOn" (click)="selectAllToggle()">
+            <mat-pseudo-checkbox class="mat-pseudo-checkbox mat-option-pseudo-checkbox ng-star-inserted" ng-reflect-state="unchecked" ng-reflect-disabled="false">
+                ::after
+            </mat-pseudo-checkbox>
+            <span style="line-height: 3em; color: rgba(0,0,0,.87);font: 400 19px/20px Roboto, 'Helvetica Neue', sans-serif;"> Check all</span>
+            <div mat-ripple="" class="mat-ripple mat-option-ripple" ng-reflect-trigger="[object HTMLElement]" ng-reflect-disabled="false"></div>
+        </button>
+    </ng-template>
+</div>

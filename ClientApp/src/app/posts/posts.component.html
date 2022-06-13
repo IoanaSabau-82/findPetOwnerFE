@@ -3,9 +3,10 @@
         <div class="parent">
                 <div class="filter">
                 <mat-form-field appearance="outline">
-                    <mat-label>Filter by status</mat-label>
-                    <mat-select [formControl]="options" placeholder="options" multiple >
-                        <mat-option (onSelectionChange)="clearFilter()">All</mat-option>
+                    <mat-label>Status</mat-label>
+                    <mat-select #select [formControl]="options" placeholder="options" multiple >
+                        <app-select-all [matSelect]="select">
+                        </app-select-all>
                         <mat-option *ngFor="let item of optionsList" value={{item}} (onSelectionChange)="getFilteredItems()">{{item|postStatusPipe}}</mat-option>
                     </mat-select>
                 </mat-form-field>

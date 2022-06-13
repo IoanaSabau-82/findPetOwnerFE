@@ -32,10 +32,10 @@
             <input matInput placeholder="Details" formControlName="details">
         </mat-form-field>
     <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
-    <div *ngIf="pictures">
-        
+
+    <div *ngIf="files">
     <div class="img-parent">
-    <div class="img-child" *ngFor="let pic of pictures.value">
+    <div class="img-child" *ngFor="let pic of files|slice:0:(initialFilesNo-1)">
         <p>{{pic.url|pictureName}}
         <mat-icon (click)="removePicture(pic.url)" color="primary" style="bottom:0">delete</mat-icon></p>
         

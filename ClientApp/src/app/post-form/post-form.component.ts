@@ -6,6 +6,7 @@ import { DataExchangeService } from '../services/data-exchange.service';
 import { Location } from '@angular/common';
 import { GeocodingService } from '../services/geocoding.service';
 import { lastValueFrom, map } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,10 @@ import { lastValueFrom, map } from 'rxjs';
 })
 export class PostFormComponent{
 
+  @Output() updateData = new EventEmitter<boolean>();
+
   files:any[]=[];
+  initialFilesNo!:number;
   postForm!:FormGroup;
 
   response!: {'url':string[]};
@@ -26,8 +30,11 @@ export class PostFormComponent{
   lat:any;
   long:any;
 
+  previousPage!:string;
+
   statusOptions = postStatusData;
-  constructor(private usersService :UsersService, private fb:FormBuilder, private data: DataExchangeService, private location: Location, private geoLocation: GeocodingService) { 
+  constructor(private usersService :UsersService, private fb:FormBuilder, private data: DataExchangeService, private location: Location, private geoLocation: GeocodingService, private router:Router) { 
+    this.previousPage=this.router.getCurrentNavigation()!.previousNavigation!.finalUrl!.toString();
   }
 
   ngOnInit(): void {
@@ -55,7 +62,7 @@ this.postForm = this.fb.group({
 
 updatePost():void{
   this.postForm = this.fb.group({
-    createdBy: [this.data.postForm.id],
+    createdBy: [{'id':this.data.userFormDataBasicUser.id}],
     phone:[this.data.postForm.phone],
     address: [this.data.postForm.address],
     availability: [this.data.postForm.availability],
@@ -64,7 +71,8 @@ updatePost():void{
     cipId: [this.data.postForm.cipId],
     pictures: [this.data.postForm.pictures],
  });
-  this.files[0]=this.pictures?.value;
+  this.files=this.pictures?.value;
+  this.initialFilesNo = this.files.length;
   console.log('files list on update', this.files)
 }
 
@@ -85,14 +93,14 @@ updatePost():void{
   else
   {
     this.postForm.patchValue({
-      pictures: this.files.flat()});
+    pictures: this.files.flat()});
     console.log(this.postForm.value, this.data.postForm.id)
 
     this.usersService.putPost(this.data.postForm.id, this.postForm.value).subscribe();
     this.update=false;
     this.data.postForm=null;
   }
-  this.location.back();
+  this.router.navigate([this.previousPage]).then(() => {window.location.reload();});
 }
 
 
@@ -127,15 +135,19 @@ console.log('after upload',this.files);
 }
 
 removePicture(pic:string){
+console.log('pic to be removed', pic)
 const pictureName = pic.replace("https://findpetowner.blob.core.windows.net/file-container/",'')
-this.usersService.deleteBlob(pictureName).subscribe(result=>console.log(result))
-this.removeItem(pic);
+this.removeItem(pic.toString());
+this.usersService.deleteBlob(pictureName).subscribe();
 }
 
 removeItem(value:string){
-  const index: number = this.pictures?.value.indexOf(value);
-  this.pictures?.value.splice(index, 1);
-  console.log('after remove',this.pictures)
+  const index: number = this.files.findIndex(i => i.url ===value);
+  this.files.splice(index, 1);
+}
+
+updatePosts() {
+  this.updateData.emit(true);
 }
 
 }  

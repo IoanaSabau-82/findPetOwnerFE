@@ -3,8 +3,9 @@ height="800px"
  width="100%" 
  [center]="center" 
  [zoom]="15">
+ <ng-container *ngFor="let post of posts">
 <map-marker  #marker="mapMarker"
-*ngFor="let post of posts"
+*ngIf="post.assignedStatus==0"
 [position]="{lat: post.lat ,lng:post.lng}"
 [title]="post.availability"
 [icon]="icon"
@@ -12,6 +13,7 @@ height="800px"
 (mapClick)="onRowClicked(post)">
 
 </map-marker>
+</ng-container>
 <map-info-window>
 
 </map-info-window>

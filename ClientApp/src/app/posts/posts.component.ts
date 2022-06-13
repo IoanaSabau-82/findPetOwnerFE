@@ -17,36 +17,29 @@ import { Router } from '@angular/router';
 export class PostsComponent implements OnInit {
 
   faPlus = faPlus;
-  
   linkAll = 'posts';
   linkUsersOnly = 'posts-by-account';
-
   posts!: Observable<IPostModel[]>;
   filteredPosts!: Observable<any>;
-  //refreshPosts = new BehaviorSubject<boolean>(true);
-  //checked = false;
   optionsList = [0,1,2,3,4,5];
-  selectedElements = [];
   options = new FormControl();
+
+  refreshPosts = new BehaviorSubject<boolean>(true);
 
   constructor(private usersService :UsersService, public dataExchange: DataExchangeService, private router: Router) { }
 
   ngOnInit(): void {
-    this.posts = this.usersService.getPosts(); 
+    this.posts = this.refreshPosts.pipe(switchMap(_ =>this.usersService.getPosts()));
+    this.refreshPosts.subscribe(res=>console.log(res))
 }
 
 getFilteredItems() {
-console.log(this.options.value)
  this.posts=this.posts.pipe(map(posts=>posts.filter((post: { postStatus: number; })=>this.options.value.map(Number).includes(post.postStatus))));
 }
 
-clearFilter(){
-  this.posts = this.usersService.getPosts(); 
-}
-
 callPostForm(){
-this.router.navigate(['post-form'])
+this.refreshPosts.next(false);
+this.router.navigate(['post-form']);
+}
 }
 
-}
-//.subscribe((response)=>console.log(response))

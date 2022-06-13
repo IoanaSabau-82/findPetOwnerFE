@@ -58,6 +58,7 @@ import { ImagesGridComponent } from './images-grid/images-grid.component';
 import { PictureNamePipe } from './pipes/picture-name.pipe';
 import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
 import { MapComponent } from './map/map.component';
+import { SelectAllComponent } from './select-all/select-all.component';
 
 
 const INTL_DATE_INPUT_FORMAT = {
@@ -105,6 +106,7 @@ const DATE_TIME_FORMAT = {
     ImagesGridComponent,
     PictureNamePipe,
     MapComponent,
+    SelectAllComponent,
 
 
   ],

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { DialogData } from '../custom-inputs/card-input/card-input.component';
 import { UsersService } from '../services/users.service';
 
@@ -13,7 +14,7 @@ export class PostDeleteDialogComponent{
 
   @Output() deletePost: EventEmitter<number> = new EventEmitter();
 
-  constructor(private usersService :UsersService, public dialogRef: MatDialogRef<PostDeleteDialogComponent>,
+  constructor(private usersService :UsersService, private router: Router, public dialogRef: MatDialogRef<PostDeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData ) {}
 
 

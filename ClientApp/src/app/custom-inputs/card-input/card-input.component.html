@@ -12,29 +12,47 @@
     </mat-card-title-group>
     <mat-card-content>{{post.details}}</mat-card-content>
 
-    <div *ngIf="post.pictures.length>0; else noPicture">
-        <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2" rowHeight="350px">
-            <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesOdd[i].cols" [rowspan]="tilesOdd[i].rows">
-            <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 100%;" >
-        </mat-grid-tile>
-          </mat-grid-list>
+    <div *ngIf="post.pictures.length>1; else onePic">
 
-          <ng-template #even>
-            <mat-grid-list cols="2" rowHeight="350px">
-                <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesEven[i].cols" [rowspan]="tilesEven[i].rows">
-                    <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 100%;" >
-                </mat-grid-tile>
-        </mat-grid-list> 
-        </ng-template>
+            <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2" rowHeight="350px">
+                <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesOdd[i].cols" [rowspan]="tilesOdd[i].rows">
+                <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 99%;" >
+            </mat-grid-tile>
+            </mat-grid-list>
+
+            <ng-template #even>
+                <mat-grid-list cols="2" rowHeight="350px">
+                    <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesEven[i].cols" [rowspan]="tilesEven[i].rows">
+                        <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 99%;" >
+                    </mat-grid-tile>
+            </mat-grid-list> 
+            </ng-template>
+
+            <ng-template #onePicDisplay>
+                <mat-grid-list cols="1" rowHeight="500px">
+                    <mat-grid-tile>
+                <img src={{post.pictures[0].url}} style="object-fit: cover; width: 100%; height: 90%;">
+            </mat-grid-tile>
+        </mat-grid-list>
+            </ng-template>
 
     </div>
+    <ng-template #onePic>
+
+        <mat-grid-list  *ngIf="post.pictures.length==1; else noPicture" cols="1" rowHeight="700px">
+            <mat-grid-tile>
+                <img src={{post.pictures[0].url}} style="object-fit: cover; width: 100%; height: 100%;">
+    </mat-grid-tile>
+    </mat-grid-list>
 
     <ng-template #noPicture>
         <mat-grid-list cols="1" rowHeight="500px">
-            <mat-grid-tile>
-        <img mat-card-image src="https://findpetowner.blob.core.windows.net/file-container/no-image-available.png" style="object-fit: cover; width: 100%; height: 100%;">
-    </mat-grid-tile>
-    </mat-grid-list>
+        <mat-grid-tile>
+            <img mat-card-image src="https://findpetowner.blob.core.windows.net/file-container/no-image-available.png" style="object-fit: cover; width: 100%; height: 90%;">
+        </mat-grid-tile>
+        </mat-grid-list>
+
+    </ng-template>
     </ng-template>
 
         <mat-card-actions align="end" style="color: #3f51b5;font-size: 1.2rem;font-weight: 500;margin: 0.5rem;">

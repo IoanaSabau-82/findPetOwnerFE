@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'post-form', component: PostFormComponent},
   {path: 'assignment-form', component: AssignmentFormComponent},
   {path: 'posts', component: PostsComponent},
-  {path: 'posts-by-account', component: PostsByAccountComponent},
+  {path: 'posts-by-account', component: PostsByAccountComponent, runGuardsAndResolvers: 'always'},
   {path: 'images', component: ImagesGridComponent},
   //{path: '**', de facut, pathMatch: 'full', }
 ];

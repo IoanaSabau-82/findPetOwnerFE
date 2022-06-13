@@ -29,9 +29,11 @@ export class AssignmentFormComponent implements OnInit{
   scheduledTime_!:any;
   postId!:string;
 
-  assignedOptions = assignedStatusData;
-  constructor(private usersService :UsersService, private fb:FormBuilder, private dataExchange: DataExchangeService,private location: Location, private route:ActivatedRoute) {
+  previousPage!:string;
 
+  assignedOptions = assignedStatusData;
+  constructor(private router:Router, private usersService :UsersService, private fb:FormBuilder, private dataExchange: DataExchangeService,private location: Location, private route:ActivatedRoute) {
+    this.previousPage=this.router.getCurrentNavigation()!.previousNavigation!.finalUrl!.toString();
   
   }
 
@@ -85,7 +87,7 @@ onSubmit():void {
     this.usersService.putAssignment(this.id, this.assignmentForm.value).subscribe();
   }
   this.update=false;
-  this.location.back();
+  this.router.navigate([this.previousPage]).then(() => {window.location.reload();})
 }
 
 get scheduledTime(){
