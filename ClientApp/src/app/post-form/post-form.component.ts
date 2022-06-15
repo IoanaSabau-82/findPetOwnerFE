@@ -19,7 +19,6 @@ export class PostFormComponent{
   @Output() updateData = new EventEmitter<boolean>();
 
   files:any[]=[];
-  initialFilesNo!:number;
   postForm!:FormGroup;
 
   response!: {'url':string[]};
@@ -41,10 +40,10 @@ export class PostFormComponent{
     if (this.data.postForm){
       this.updatePost();
       this.update = true;
-      console.log('chem update',this.data.postForm)
+      console.log('calling update',this.data.postForm)
     }
     else{
-      console.log('chem create')
+      console.log('calling create')
       this.createPost();
     }
   }
@@ -72,7 +71,6 @@ updatePost():void{
     pictures: [this.data.postForm.pictures],
  });
   this.files=this.pictures?.value;
-  this.initialFilesNo = this.files.length;
   console.log('files list on update', this.files)
 }
 
@@ -87,20 +85,16 @@ updatePost():void{
   this.postForm.addControl('lng', new FormControl(lng));
   console.log(this.postForm)
   if(!this.update){
-    this.postForm.addControl('pictures',this.fb.control(this.files.flat(), [Validators.required]));
     this.usersService.postPost(this.postForm.value).subscribe(error=>console.log(error));
   }
   else
   {
-    this.postForm.patchValue({
-    pictures: this.files.flat()});
     console.log(this.postForm.value, this.data.postForm.id)
-
     this.usersService.putPost(this.data.postForm.id, this.postForm.value).subscribe();
     this.update=false;
     this.data.postForm=null;
   }
-  this.router.navigate([this.previousPage]).then(() => {window.location.reload();});
+  this.router.navigate([this.previousPage]);
 }
 
 
@@ -128,10 +122,17 @@ get pictures(){
   return this.postForm.get('pictures')
 }
 
+
 uploadFinished = (event: any) => { 
 this.response = event.filesUrls;
+console.log('response and files initially',this.response, this.files)
 this.files.push(this.response);
 console.log('after upload',this.files);
+if (!this.pictures)
+  this.postForm.addControl('pictures',this.fb.control(this.files.flat(), [Validators.required]));
+else
+  this.postForm.patchValue({pictures: this.files.flat()});
+console.log('ce se intampla la upload',this.pictures?.value)
 }
 
 removePicture(pic:string){
@@ -144,11 +145,9 @@ this.usersService.deleteBlob(pictureName).subscribe();
 removeItem(value:string){
   const index: number = this.files.findIndex(i => i.url ===value);
   this.files.splice(index, 1);
+  this.postForm.patchValue({pictures: this.files.flat()});
 }
 
-updatePosts() {
-  this.updateData.emit(true);
-}
 
 }  
 

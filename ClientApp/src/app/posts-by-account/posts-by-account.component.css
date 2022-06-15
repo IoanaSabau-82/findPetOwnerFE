@@ -48,3 +48,12 @@ font-size: 3rem;
   }
 }
 
+.add-sign{
+  right:23%;
+  justify-content: end;
+  position:fixed;
+  bottom:10%;
+  font:200;
+  background-color: white;
+  font-size: 3rem;
+  }

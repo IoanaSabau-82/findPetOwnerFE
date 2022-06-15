@@ -14,7 +14,7 @@
 
     <div *ngIf="post.pictures.length>1; else onePic">
 
-            <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2" rowHeight="350px">
+            <mat-grid-list *ngIf="post.pictures.length %2 !=0; else even" cols="2" max-rowHeight="350px">
                 <mat-grid-tile *ngFor="let pic of post.pictures; let i=index" [colspan]="tilesOdd[i].cols" [rowspan]="tilesOdd[i].rows">
                 <img src={{pic.url}} style="object-fit: cover; width: 100%; height: 99%;" >
             </mat-grid-tile>
@@ -28,18 +28,11 @@
             </mat-grid-list> 
             </ng-template>
 
-            <ng-template #onePicDisplay>
-                <mat-grid-list cols="1" rowHeight="500px">
-                    <mat-grid-tile>
-                <img src={{post.pictures[0].url}} style="object-fit: cover; width: 100%; height: 90%;">
-            </mat-grid-tile>
-        </mat-grid-list>
-            </ng-template>
 
     </div>
     <ng-template #onePic>
 
-        <mat-grid-list  *ngIf="post.pictures.length==1; else noPicture" cols="1" rowHeight="700px">
+        <mat-grid-list  *ngIf="post.pictures.length==1; else noPicture" cols="1" rowHeight="600px">
             <mat-grid-tile>
                 <img src={{post.pictures[0].url}} style="object-fit: cover; width: 100%; height: 100%;">
     </mat-grid-tile>
@@ -56,7 +49,8 @@
     </ng-template>
 
         <mat-card-actions align="end" style="color: #3f51b5;font-size: 1.2rem;font-weight: 500;margin: 0.5rem;">
-                {{post.postStatus|postStatusPipe}} 
+            <span  *ngIf="post.postStatus===4" (click) = "onFavouriteClick()"><mat-icon>favorite</mat-icon> </span> 
+            <span style="margin-left:10px">{{post.postStatus|postStatusPipe}} </span>
         </mat-card-actions>
 
 </mat-card>

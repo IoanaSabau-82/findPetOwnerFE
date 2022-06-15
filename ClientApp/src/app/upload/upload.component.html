@@ -7,9 +7,4 @@
     <input type="file" #file placeholder="Choose files" (change)="uploadFile(file.files)" multiple style="display:none;">
   </div>
   </div>
-  <div class="col">
-    <div *ngFor="let file of files">
-      <div style="color: rgb(29, 123, 218);">{{file.name}}
-        <mat-icon (click)="removePicture(file)" color="primary" style="bottom:0">delete</mat-icon>
-    </div>
   </div> 

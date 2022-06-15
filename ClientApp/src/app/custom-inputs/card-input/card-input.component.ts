@@ -1,10 +1,12 @@
 import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IPostModel } from 'src/app/models/posts_interface';
 import { PostDeleteDialogComponent } from 'src/app/post-delete-dialog/post-delete-dialog.component';
 import { DataExchangeService } from 'src/app/services/data-exchange.service';
+import { UserFavFormService } from 'src/app/services/user-fav-form.service';
 import { UsersService } from 'src/app/services/users.service';
 
 export interface DialogData {
@@ -43,7 +45,15 @@ export class CardInputComponent{
     {cols: 1, rows: 1},
   ];
 
-  constructor(private usersService: UsersService, public dataExchange: DataExchangeService, public dialog: MatDialog, private router:Router) { 
+  userForm = this.fb.group({
+    firstName: [this.dataExchange.userFormData.firstName,[Validators.required, Validators.maxLength(25), Validators.minLength(3), Validators.pattern("^[a-zA-Z\s]+$")]],
+    lastName: [this.dataExchange.userFormData.lastName,[Validators.required, Validators.maxLength(25), Validators.minLength(3), Validators.pattern("^[a-zA-Z\s]+$")]],
+    email: [this.dataExchange.userFormData.email,[Validators.required, Validators.email]],
+    phone: [this.dataExchange.userFormData.phone,[Validators.required,Validators.pattern("^[0-9\-]+$")]],
+    address: [this.dataExchange.userFormData.address,Validators.maxLength(50)]
+  });
+
+  constructor(private fb:FormBuilder,private usersService: UsersService, public dataExchange: DataExchangeService, public dialog: MatDialog, private router:Router) { 
 
   }
 
@@ -62,5 +72,11 @@ export class CardInputComponent{
       this.router.navigate(['post-form'])
       this.dataExchange.postForm = post;
 }
+  onFavouriteClick(){
+    this.userForm.addControl('favourites',this.fb.control([{id:this.post.id}]))
+    console.log(this.userForm)
+    this.usersService.put(this.dataExchange.userFormData.id,this.userForm.value).subscribe();
+
+  }
 }
 

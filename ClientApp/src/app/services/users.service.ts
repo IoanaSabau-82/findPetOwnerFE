@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IAssignedToPost } from '../models/assigned-to-post';
 import { IPostModel } from '../models/posts_interface';
+import {tap} from 'rxjs/operators'
 
 @Injectable()
 export class UsersService {
@@ -14,7 +15,12 @@ export class UsersService {
   apiUserAssignedtoPostsUrl = "https://localhost:7172/api/AssignedVolunteers/posts"
   apiBlobUrl = "https://localhost:7172/api/Blob"
 
+  _refresh$=new Subject<void>();
+
   constructor(private http: HttpClient) { }
+
+    get refresh$():any{
+      return this._refresh$}
 
    //users calls 
 
@@ -33,10 +39,20 @@ export class UsersService {
     //posts calls 
     postPost(item: any): Observable<any> {
       return this.http.post(`${this.apiPostsUrl}`,item)
+      .pipe(tap(()=>{
+        this._refresh$.next();
+      }
+      )
+      );
     }
 
     putPost(id:string,item:any): Observable<any>{
       return this.http.put(`${this.apiPostsUrl}/${id}`,item)
+      .pipe(tap(()=>{
+        this._refresh$.next();
+      }
+      )
+      );
     }
 
     getPost(id:string): Observable<any>{
@@ -49,8 +65,13 @@ export class UsersService {
       return this.http.get(this.apiPostsUrl);
     }
 
-    deletePost(id: string): Observable<{}> {
-      return this.http.delete(`${this.apiPostsUrl}/${id}`);
+    deletePost(id: string): Observable<any> {
+      return this.http.delete(`${this.apiPostsUrl}/${id}`)
+      .pipe(tap(()=>{
+        this._refresh$.next();
+      }
+      )
+      );
       }
 
     //assignment calls 
